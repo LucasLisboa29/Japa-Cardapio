@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Japa Lounge — Cardápio</title>
+  <meta name="description" content="Cardápio digital do Japa Lounge, em Araguari. Monte seu pedido e envie pelo WhatsApp.">
+  <meta name="theme-color" content="#373536">
+  <meta property="og:title" content="Japa Lounge — Cardápio">
+  <meta property="og:description" content="Monte seu pedido e envie pelo WhatsApp.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="assets/badge.png">
+  <link rel="apple-touch-icon" href="assets/badge.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- TELA PRINCIPAL: capa, navegação e lista de itens -->
+  <div class="app">
+    <header class="capa" id="capa">
+      <div class="ondas capa-faixa"></div>
+      <img class="capa-logo" src="assets/logo.png" alt="Japa Lounge" width="103" height="136">
+      <div class="capa-rotulo">Cardápio</div>
+      <button type="button" class="botao-icone capa-sobre" data-acao="sobre" aria-label="Sobre o Japa Lounge">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><path d="M12 7.5v.2"/></svg>
+      </button>
+    </header>
+
+    <!-- Preenchido por app.js: abas dos grupos, busca e atalhos das seções -->
+    <nav class="nav" id="nav" aria-label="Categorias"></nav>
+
+    <!-- Preenchido por app.js: seções e itens do grupo ativo (ou resultado da busca) -->
+    <main id="lista"></main>
+  </div>
+
+  <!-- Barra "Ver pedido", fixa no rodapé quando há itens -->
+  <div class="barra" id="barra" hidden></div>
+
+  <!-- Folha de opções (sabores, tamanhos) -->
+  <div class="folha" id="folha" hidden></div>
+
+  <!-- TELA: SEU PEDIDO -->
+  <section class="tela" id="tela-pedido" hidden aria-labelledby="titulo-pedido">
+    <header class="tela-topo">
+      <button type="button" class="botao-icone" data-acao="voltar" aria-label="Voltar ao cardápio">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+      </button>
+      <h1 id="titulo-pedido">Seu pedido</h1>
+    </header>
+
+    <div class="pedido-vazio" id="pedido-vazio" hidden>
+      <p class="pedido-vazio-titulo">Seu pedido está vazio</p>
+      <p>Adicione itens do cardápio para montar o pedido.</p>
+      <button type="button" class="botao botao-escuro" data-acao="voltar">Ver cardápio</button>
+    </div>
+
+    <div class="pedido-cheio" id="pedido-cheio">
+      <div class="tela-corpo">
+        <div id="pedido-linhas"></div>
+
+        <div class="pedido-atalhos">
+          <button type="button" class="botao-texto" data-acao="voltar">+ Adicionar mais itens</button>
+          <button type="button" class="botao-texto botao-texto-discreto" data-acao="esvaziar">Esvaziar pedido</button>
+        </div>
+
+        <div class="formulario">
+          <div class="campo">
+            <label for="campo-nome">Seu nome</label>
+            <input id="campo-nome" type="text" autocomplete="name" maxlength="60">
+          </div>
+          <div class="campo">
+            <label for="campo-obs">Observações <span class="opcional">(opcional)</span></label>
+            <textarea id="campo-obs" rows="3" maxlength="300"></textarea>
+          </div>
+          <p class="aviso">Os 10% são inclusos como serviços. O cover artístico é acrescido por pessoa. Formas de pagamento: dinheiro, cartão de débito, cartão de crédito e pix.</p>
+        </div>
+      </div>
+
+      <footer class="pedido-rodape">
+        <div class="pedido-total">
+          <span class="rotulo">Total dos itens</span>
+          <span class="valor" id="pedido-total">R$ 0,00</span>
+        </div>
+        <a class="botao botao-primario" id="enviar" target="_blank" rel="noopener" hidden>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 3L10 14"/><path d="M21 3l-7 18-4-7-7-4 18-7z"/></svg>
+          <span>Enviar pedido pelo WhatsApp</span>
+        </a>
+        <button type="button" class="botao botao-desligado" id="enviar-bloqueado" disabled>Informe seu nome para enviar</button>
+      </footer>
+    </div>
+  </section>
+
+  <!-- TELA: NOSSA HISTÓRIA -->
+  <section class="tela" id="tela-sobre" hidden aria-labelledby="titulo-sobre">
+    <header class="tela-topo">
+      <button type="button" class="botao-icone" data-acao="voltar" aria-label="Voltar ao cardápio">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+      </button>
+      <h1 id="titulo-sobre">Nossa história</h1>
+    </header>
+    <div class="tela-corpo">
+      <div class="historia">
+        <h2>Antes de comer… é preciso lembrar</h2>
+        <p>O amor é o motor de todas as histórias que realmente valem a pena ser contadas. E esta é uma delas.</p>
+        <p>Tudo começou de forma simples: um pequeno cômodo, um sushiman e uma professora que gosta de atender com carinho. Poucos recursos, mas um ingrediente essencial que nunca faltou: amor pelo que fazemos e pelas pessoas que recebemos.</p>
+        <p>Com dedicação e propósito, o que era pequeno começou a crescer. Vieram as conquistas da vida: um casamento, dois filhos, mais espaço para acolher clientes que se tornaram amigos, desafios superados — inclusive uma crise global — e a construção de algo muito maior que um negócio: um legado.</p>
+        <p>O sonho ganhou forma. Cada detalhe pensado, cada espaço criado para cumprir o propósito do JAPA LOUNGE: proporcionar sabores e sorrisos.</p>
+        <p>Mais que alimentação, uma experiência sensorial. Mais que atendimento, encantamento. Mais que um empreendimento, um sonho que se transformou em projeto — e do projeto nasceu uma linda realidade.</p>
+        <p>Mas toda boa história também tem capítulos de recomeço.</p>
+        <p>Depois de um tempo longe daquilo que criamos com tanto amor, Deus nos deu a oportunidade de voltar às origens. Hoje, com o coração cheio de gratidão e ainda mais experiência, reassumimos o JAPA LOUNGE, a nossa criação de mais de 12 anos.</p>
+        <p>Recomeçamos com a mesma essência, mas com uma visão ainda maior: honrar tudo o que foi construído e escrever novos capítulos dessa história.</p>
+        <p>Porque no tempo do relógio, os anos passam. Mas no tempo de Deus, quando há propósito, a construção é eterna.</p>
+        <p>E esta nova fase… é apenas mais uma pedra fundamental.</p>
+        <p>Desfrute seu prato. Desfrute o momento. E continue fazendo parte desta história.</p>
+        <p class="historia-assinatura">JAPA LOUNGE — mais que um restaurante, uma história viva.</p>
+      </div>
+
+      <div class="contato">
+        <div class="ondas contato-faixa"></div>
+        <div class="contato-texto">
+          <div class="contato-rotulo">Onde estamos</div>
+          <div class="contato-endereco">Rua Estrela do Sul, 137 - Centro</div>
+          <div>(34) 3513-9900</div>
+          <div>@JAPA LOUNGE ARAGUARI</div>
+        </div>
+      </div>
+
+      <div class="rodape-info">
+        <p class="rodape-destaque">Desejamos a você uma excelente experiência gastronômica, capaz de aguçar todos os seus sentidos.</p>
+        <p>Formas de pagamento: dinheiro, cartão de débito, cartão de crédito e pix.</p>
+        <p>Os 10% são inclusos como serviços.</p>
+        <p>O cover artístico é acrescido por pessoa para abrilhantar ainda mais a sua experiência.</p>
+      </div>
+    </div>
+  </section>
+
+  <script src="js/menu.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
